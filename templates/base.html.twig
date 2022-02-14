@@ -14,6 +14,7 @@
             <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
             <title>Adminto - Responsive Admin Dashboard Template</title>
+            <link href="{{ asset('assets/plugins/fileuploads/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
 
             <!--Morris Chart CSS -->
             <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -48,9 +49,11 @@
             <script src="{{ asset('assets/pages/jquery.dashboard.js') }}"></script>
             <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
             <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
+            <script src="{{ asset('assets/plugins/fileuploads/js/dropify.min.js') }}"></script>
 
 
-               {% endblock %}
+
+        {% endblock %}
     </head>
     <body class="fixed-left">
 
@@ -152,7 +155,7 @@
                     <ul>
                         <li class="text-muted menu-title">Navigation</li>
                         <li>
-                            <a href="{{ path('add') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Gestion Produit </span> </a>
+                            <a href="{{ path('product_list') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Gestion Produit </span> </a>
                         </li>
                         <li>
                             <a href="{{ path('create') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Gestion Vol </span> </a>

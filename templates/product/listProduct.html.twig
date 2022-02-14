@@ -45,6 +45,7 @@
                                     <th>Coleur</th>
                                     <th>Modifier</th>
                                     <th>Supprimer</th>
+                                    <th>Detail</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -54,8 +55,9 @@
                                         <td>{{ p.nom }}</td>
                                         <td>{{ p.prix }}</td>
                                         <td>{{ p.coleur }}</td>
-                                        <td><i class="fa fa-pencil"></i></td>
-                                        <td><i class="fa fa-trash" ></i></td>
+                                        <td><a href="{{ path('modification',{'id':p.id}) }}"><i class="fa fa-pencil" style="color:#ff5b5b;font-size:20px"></i> </a> </td>
+                                        <td><a href="{{ path('suppression',{'id':p.id}) }}"><i class="fa fa-trash" style="color:#00aff0;font-size:20px"></i> </a> </td>
+                                        <td><a href="{{ path('detail',{'id':p.id}) }}"><i class="fa fa-list" style="color:#0eac5c;font-size:20px"></i> </a> </td>
                                     </tr>
 
 

@@ -35,12 +35,13 @@
                             </div>
 
                             <h4 class="header-title m-t-0 m-b-30">Basic Form</h4>
-                            {{ form_start(f) }}
+                            {{ form_start(f, {attr: {novalidate: 'novalidate'}}) }}
 
                             <div class="form-group">
                             <label for="nom">Nom*</label>
 
-                            {{ form_widget(f.nom, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_widget(f.Nom, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(f.Nom, {'attr': {'class': 'text-danger'}}) }}
 
                             </div>
                             <div class="form-group">
@@ -48,13 +49,43 @@
 
                             <div class="form-group">
                             {{ form_widget(f.prix, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(f.prix, {'attr': {'class': 'text-danger'}}) }}
 
                             </div>
+
+                                <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        <div class="card-box">
+
+                                            <div class="dropdown pull-right">
+                                                <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-vertical"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <!-- item-->
+                                                    <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                                    <!-- item-->
+                                                    <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                                    <!-- item-->
+                                                    <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                                    <!-- item-->
+                                                    <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                                                </div>
+                                            </div>
+
+                                            <h4 class="header-title m-t-0 m-b-30">Default</h4>
+                                            {{ form_widget(f.image, {'attr': {'class': 'dropify','data-height':'300'}}) }}
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
 
                             <label for="nom">Description</label>
 
                             {{ form_widget(f.description, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(f.description, {'attr': {'class': 'text-danger'}}) }}
 
                                 </div>
                                 <div class="form-group">
@@ -63,6 +94,8 @@
 
 
                             {{ form_widget(f.coleur, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(f.coleur, {'attr': {'class': 'text-danger'}}) }}
+
                                 </div>
 
                                 <div class="form-group text-right m-b-0">
@@ -115,4 +148,17 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong appended.'
+            },
+            error: {
+                'fileSize': 'The file size is too big (1M max).'
+            }
+        });
+    </script>
 {% endblock %}

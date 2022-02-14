@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -18,21 +20,41 @@ class Product
     private $id;
 
     /**
+     * @Assert\NotBlank(message="nom produit doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer un nom au mini de 5 caracteres"
+     *
+     *     )
      * @ORM\Column(type="string", length=255)
      */
     private $Nom;
 
     /**
+     * @Assert\NotBlank(message="prix produit doit etre non vide")
+     * @Assert\Positive
+     * @Assert\Range(
+     *      min = 3,
+     *      max = 1000,
+     *      notInRangeMessage = "le prix doit etre valid",
+     *     )
      * @ORM\Column(type="float")
      */
     private $prix;
 
     /**
+     * @Assert\NotBlank(message="description produit doit etre non vide")
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 100,
+     *      minMessage = "doit etre >=7 ",
+     *      maxMessage = "doit etre <=100" )
      * @ORM\Column(type="string", length=1000)
      */
     private $description;
 
     /**
+     * @Assert\NotBlank(message="couleur produit doit etre non vide")
      * @ORM\Column(type="string", length=255)
      */
     private $coleur;
@@ -48,6 +70,12 @@ class Product
      * @ORM\Column(type="string", length=500,nullable=true)
      */
     private $image;
+
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
 
 
     public function getId(): ?int
@@ -133,6 +161,50 @@ class Product
     public function setImage($image): void
     {
         $this->image = $image;
+    }
+
+    //UPLOAD IMAGE
+    //GeT PUBLIC FOLDER
+    public function getPublicFolder() {
+        $webPath = $this->get('kernel')->getProjectDir() . '/public/uploads/produit_image';
+
+        return $webPath;
+
+
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+
+    //te5o image w tzidha fi dossier produit_image
+    public function upload()
+    {
+        if(null === $this->getFile()) {
+            return;
+        }
+
+        $this->getFile()->move(
+            $this->getPublicFolder(),//destinataire
+            $this->getFile()->getClientOriginalName()//esem fichier (image)
+        );
+
+        $this->image = $this->getFile()->getClientOriginalName();//
+
+        $this->file = null; // liberation memoire
     }
 
 

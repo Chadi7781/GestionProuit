@@ -35,6 +35,17 @@ class ProductController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
+            //upload image
+            $uploadFile = $form['image']->getData(); // valeur ta3 image (ely how name ta3ha)
+            $filename = md5(uniqid()) . '.' .$uploadFile->guessExtension();//crypté image
+
+            $uploadFile->move($this->getParameter('kernel.project_dir').'/public/uploads/produit_image',$filename);
+
+
+            $product->setImage($filename);
+
+
+
             $date = new \DateTime('@'.strtotime('now'));
             /*
              * Add product
@@ -51,5 +62,57 @@ class ProductController extends AbstractController
 
         return $this->render('product/addProduct.html.twig',array("f"=>$form->createView()));
 
+    }
+    /**
+     * @Route("/modifier_produit/{id}", name="modification")
+     */
+    public function modifierProduit(\Symfony\Component\HttpFoundation\Request $req, $id) {
+        $em= $this->getDoctrine()->getManager();
+        $prod = $em->getRepository(Product::class)->find($id);
+        $form = $this->createForm(ProductType::class,$prod);
+        $form->handleRequest($req);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('product_list');
+
+        }
+
+        return $this->render('product/modifier_produit.html.twig',array("f"=>$form->createView()));
+
+
+    }
+
+    /**
+     * @Route("/supprimer_produit/{id}", name="suppression")
+     */
+    public function  supprimerProduit($id) {
+        $em= $this->getDoctrine()->getManager();
+        $i = $em->getRepository(Product::class)->find($id);
+
+        $em->remove($i);
+        $em->flush();
+
+        return $this->redirectToRoute("product_list");
+
+    }
+    /**
+     * @Route("/detail_produit/{id}", name="detail")
+     */
+    public function detailProduit(\Symfony\Component\HttpFoundation\Request $req, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $prod = $em->getRepository(Product::class)->find($id);
+
+
+        return $this->render('product/detail_produit.html.twig', array(
+            'id' => $prod->getId(),
+            'name' => $prod->getNom(),
+            'prix' => $prod->getPrix(),
+            'description' => $prod->getDescription(),
+            'color' => $prod->getColeur(),
+            'image'=>$prod->getImage()
+        ));
     }
 }

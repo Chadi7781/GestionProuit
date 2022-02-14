@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <a href="{{ path('product_list') }}">
+                        <i class="fa fa-arrow-circle-left" style="font-size: 30px;"></i>
+
+                    </a>
+
+                </div>
+                <div class="row" style="display: flex;align-items: center;justify-content: center;">
+
+                    <div class="col-md-6 col-lg-3">
+
+                        <div class="card m-b-20">
+                            <img class="card-img-top img-fluid" src="{{ asset('uploads/produit_image/'~image) }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title"> Produit numero :{{id }}</h4>
+                                <p class="card-text">Description : <span style="color:#ff5b5b">{{ description }}</span> </p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Prix: <span style="color:#ff5b5b">{{ prix }}</span> </li>
+                                <li class="list-group-item">Nom : {{ name }}</li>
+                                <li class="list-group-item">Couleur : {{ color }}</li>
+                            </ul>
+{#                            <div class="card-body">#}
+{#                                <a href="#" class="card-link">Card link</a>#}
+{#                                <a href="#" class="card-link">Another link</a>#}
+{#                            </div>#}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
