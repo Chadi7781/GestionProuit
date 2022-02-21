@@ -1,58 +1,172 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block body %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
     <div class="content-page">
-        <!-- Start content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <a href="{{ path('product_list') }}">
-                        <i class="fa fa-arrow-circle-left" style="font-size: 30px;"></i>
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid">
 
-                    </a>
+            <div class="row">
+                <h1>Modifier Product</h1>
+            </div>
 
-                </div>
-                <div class="row" style="display: flex;align-items: center;justify-content: center">
-                    <div class="col-md-6">
-                        <div class="card-box">
-                            <h4 class="m-t-0 m-b-30 header-title">Modifier Produit</h4>
-                            {{form_start(f)}}
+            <div class="row"   style="display: flex; justify-content: center;align-items:center;width: 100%" >
 
-                            <div class="form-group">
-                                <label for="name">Nom</label>
-                                {{ form_widget(f.nom, {'attr':{'class':'form-control'}})}}
+                <div class="col-md-6">
+                    <div class="card-box">
+                        <div class="dropdown pull-right">
+                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
                             </div>
-                            <div class="form-group">
-                                <label for="name">Prix</label>
-                                {{ form_widget(f.prix, {'attr':{'class':'form-control'}})}}
-                            </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="name">description</label>
-                                {{ form_widget(f.description, {'attr':{'class':'form-control'}})}}
+                        <h4 class="header-title m-t-0 m-b-30">Basic Form</h4>
+                        {{ form_start(f, {attr: {novalidate: 'novalidate'}}) }}
 
-                            </div>
-                            <div class="form-group">
-                                <label for="name">color</label>
-                                {{ form_widget(f.coleur, {'attr':{'class':'form-control'}})}}
+                        <div class="form-group">
+                            <label for="nom">Nom*</label>
 
-                            </div>
-                            <div class="form-group">
-                                {{ form_widget(f.Submit,{'attr':{'class':'btn btn-pink btn-rounded w-md waves-effect waves-light m-b-5'}}) }}
-                            </div>
-                            {{ form_end(f) }}
+                            {{ form_widget(f.Nom, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(f.Nom, {'attr': {'class': 'text-danger'}}) }}
 
                         </div>
+                        <div class="form-group">
+                            <label for="nom">Prix*</label>
+
+                            <div class="form-group">
+                                {{ form_widget(f.prix, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(f.prix, {'attr': {'class': 'text-danger'}}) }}
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-sm-12">
+                                    <div class="card-box">
+
+                                        <div class="dropdown pull-right">
+                                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <!-- item-->
+                                                <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                                <!-- item-->
+                                                <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                                <!-- item-->
+                                                <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                                <!-- item-->
+                                                <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="header-title m-t-0 m-b-30">Image</h4>
+                                        {{ form_widget(f.image, {'attr': {'class': 'dropify','data-height':'300'}}) }}
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label for="nom">Description</label>
+
+                                {{ form_widget(f.description, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(f.description, {'attr': {'class': 'text-danger'}}) }}
+
+                            </div>
+                            <div class="form-group">
+
+                                <label for="nom">Categorie</label>
+
+                                {{ form_widget(f.category, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(f.category, {'attr': {'class': 'text-danger'}}) }}
+
+                            </div>
+                            <div class="form-group">
+
+                                <label for="nom">Couleur</label>
+
+
+                                {{ form_widget(f.coleur, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(f.coleur, {'attr': {'class': 'text-danger'}}) }}
+
+                            </div>
+
+                            <div class="form-group text-right m-b-0">
+                                {{ form_widget(f.Submit, {'attr': {'class': 'btn btn-primary waves-effect waves-light'}}) }}
+                                <button type="reset" class="btn btn-secondary waves-effect waves-light m-l-5">Reset
+                                </button>
+
+                            </div>
+
+
+                            {{ form_end(f) }}
+                            {#                            <form action="#" data-parsley-validate="" >#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <label for="userName">User Name*</label>#}
+                            {#                                    <input type="text" name="nick" parsley-trigger="change" required="" placeholder="Enter user name" class="form-control" id="userName">#}
+                            {#                                </div>#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <label for="emailAddress">Email address*</label>#}
+                            {#                                    <input type="email" name="email" parsley-trigger="change" required="" placeholder="Enter email" class="form-control" id="emailAddress">#}
+                            {#                                </div>#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <label for="pass1">Password*</label>#}
+                            {#                                    <input id="pass1" type="password" placeholder="Password" required="" class="form-control">#}
+                            {#                                </div>#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <label for="passWord2">Confirm Password *</label>#}
+                            {#                                    <input data-parsley-equalto="#pass1" type="password" required="" placeholder="Password" class="form-control" id="passWord2">#}
+                            {#                                </div>#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <div class="checkbox">#}
+                            {#                                        <input id="remember-1" type="checkbox" data-parsley-multiple="remember-1">#}
+                            {#                                        <label for="remember-1"> Remember me </label>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+
+                            {#                                <div class="form-group text-right m-b-0">#}
+                            {#                                    <button class="btn btn-primary waves-effect waves-light" type="submit">#}
+                            {#                                        Submit#}
+                            {#                                    </button>#}
+                            {#                                    <button type="reset" class="btn btn-secondary waves-effect waves-light m-l-5">#}
+                            {#                                        Cancel#}
+                            {#                                    </button>#}
+                            {#                                </div>#}
+
+                            {#                            </form>#}
+                        </div>
                     </div>
-
-
 
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
+    <script type="text/javascript">
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong appended.'
+            },
+            error: {
+                'fileSize': 'The file size is too big (1M max).'
+            }
+        });
+    </script>
 {% endblock %}

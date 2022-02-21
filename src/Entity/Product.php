@@ -78,6 +78,34 @@ class Product
     private $file;
 
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="category_id")
+     */
+    private $category;
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
+
+
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -206,6 +234,8 @@ class Product
 
         $this->file = null; // liberation memoire
     }
+
+
 
 
 }

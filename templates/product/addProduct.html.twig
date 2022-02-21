@@ -90,6 +90,14 @@
                                 </div>
                                 <div class="form-group">
 
+                                    <label for="nom">Categorie</label>
+
+                                    {{ form_widget(f.category, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(f.category, {'attr': {'class': 'text-danger'}}) }}
+
+                                </div>
+                                <div class="form-group">
+
                                 <label for="nom">Couleur</label>
 
 

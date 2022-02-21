@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,7 +21,12 @@ class ProductType extends AbstractType
             ->add('prix')
             ->add('description',TextareaType::class)
             ->add('coleur')
-            ->add('image',FileType::class)
+            ->add('image',FileType::class,array("data_class"=>null))
+            ->add('category',EntityType::class,
+                array(
+                    'class'=> 'App\Entity\Category',
+                    'choice_label'=>'name',
+                    'multiple'=>false))
             ->add('Submit',SubmitType::class)
         ;
     }
