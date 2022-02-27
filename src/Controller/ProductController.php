@@ -136,4 +136,29 @@ class ProductController extends AbstractController
             'nameCat'=>$prod->getCategory()->getName()
         ));
     }
+
+    //SEARCH
+
+    /**
+     * @Route("/ajax_search/", name="ajax_search")
+     */
+    public function chercherProduit(\Symfony\Component\HttpFoundation\Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $requestString = $request->get('q');
+        $products =  $em->getRepository(Product::class)->rechercheAvance($requestString);
+        if(!$products) {
+            $result['products']['error'] = "Product non trouvé :( ";
+        } else {
+            $result['products'] = $this->getRealEntities($products);
+        }
+        return new Response(json_encode($result));
+    }
+    public function getRealEntities($products){
+        foreach ($products as $products){
+            $realEntities[$products->getId()] = [$products->getImage(),$products->getDateCreation(),$products->getNom(),$products->getPrix()];
+
+        }
+        return $realEntities;
+    }
 }

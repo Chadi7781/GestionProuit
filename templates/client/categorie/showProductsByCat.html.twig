@@ -15,33 +15,52 @@
     </section>
 
     <section class="ftco-section">
+
         <div class="container">
-            <div class="row d-flex">
+            <div class="row">
+                <section>
 
-                <form>
-                    <input type="text" placeholder="name item"/>
-                    <input type="text" placeholder="surname item"/>
-                    <input type="text" placeholder="age item"/>
-                    <p>{{ namecar }}</p>
-                </form>
+                    <div class="album py-5 bg-light">
+                        <div class="container">
+                            <div class="sidebar-search" >
+                                <div class="input-group custom-search-form">
+                                    <input    type="text" id="search" class="form-control widget_input" placeholder="Chercher..." style="width: 1180px;background: white">
+                                </div>
+                                <br>
+                                <!-- /input-group -->
+                                <ul class="nav" id="side-menu">
+                                    <li>
+                                        <a href="#"> <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level" id="entitiesNav">
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="row d-flex" id="containerr">
+                <div id="search"></div>
 
-{#                {% for p in products %}#}
+                {% for p in products %}
 
-{#                    <div class="col-md-4 d-flex ftco-animate">#}
-{#                        <div class="blog-entry justify-content-end">#}
-{#                            <a href="#" class="block-20" style="background-image: url({{ asset('uploads/produit_image/'~p.image) }});">#}
-{#                            </a>#}
-{#                            <div class="text mt-3 float-right d-block">#}
+                      <div class="col-md-4 d-flex ftco-animate" id="c">
+                          <div class="blog-entry justify-content-end">
+                              <a href="#" class="block-20" style="background-image: url({{ asset('uploads/produit_image/'~p.image) }});">
+                              </a>
+                              <div class="text mt-3 float-right d-block">
 
-{#                                <h3 class="heading"><a href="#">{{ p.nom }}</a></h3>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
+                                  <h3 class="heading"><a href="#">{{ p.nom }}</a></h3>
+                              </div>
+                          </div>
+                      </div>
 
-{#                {% endfor %}#}
+                {% endfor %}
 
 
             </div>
+
             <div class="row mt-5">
                 <div class="col text-center">
                     <div class="block-27">
@@ -59,4 +78,71 @@
             </div>
         </div>
     </section>
+
+
+    <!-- jQuery is necessary -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+
+        jQuery(document).ready(function() {
+            var searchRequest = null;
+            $("#search").keyup(function() {
+
+
+
+                var minlength = 3;
+                var that = this;
+                var value = $(this).val();
+                var entitySelector = $("#entitiesNav").html('');
+                if (value.length >= minlength ) {
+                    if (searchRequest != null)
+                        searchRequest.abort();
+                    searchRequest = $.ajax({
+                        type: "GET",
+                        url: "{{ path('ajax_search') }}",
+                        data: {
+                            'q' : value
+                        },
+                        dataType: "text",
+                        success: function(msg){
+                            //we need to check if the value is the same
+                            if (value==$(that).val()) {
+                                var result = JSON.parse(msg);
+
+                                $.each(result, function(key, arr) {
+                                    $.each(arr, function(id, value) {
+                                        if (key == 'products') {
+                                            if (id != 'error') {
+                                                x= document.getElementById("containerr");
+
+                                                entitySelector.append('<div style="display: table;width:100%;padding: 15px"><span style="text-align: center">'+value[2]+'</span><br/><a href="/show_products_cat/'+id+'">'+'<img src="/uploads/produit_image/'+value[0]+'" style="width: 150px; height: 150px"/>'+'</a></div>');
+
+
+                                            } else {
+                                                entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(".btn1").click(function(){
+                $("h1").slideUp();
+            });
+            $(".btn2").click(function(){
+                $("h1").slideDown();
+            });
+            $(".btn3").click(function(){
+                $("h1").slideToggle();
+            });
+        });
+    </script>
 {% endblock %}

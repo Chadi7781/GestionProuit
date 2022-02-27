@@ -193,11 +193,12 @@ class Product
 
     //UPLOAD IMAGE
     //GeT PUBLIC FOLDER
+
+    //UPLOAD IMAGE
+    //GeT PUBLIC FOLDER
     public function getPublicFolder() {
-        $webPath = $this->get('kernel')->getProjectDir() . '/public/uploads/produit_image';
 
-        return $webPath;
-
+        return __DIR__.'/../../public/uploads/produit_image';
 
     }
 

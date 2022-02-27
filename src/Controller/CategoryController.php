@@ -125,24 +125,16 @@ class CategoryController extends AbstractController
     public function showProducts(\Symfony\Component\HttpFoundation\Request $req, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $categorie = $em->getRepository(Category::class)->find($id);//voiture
+        $categorie = $em->getRepository(Category::class)->find($id);
 
-       // var_dump($categorie); die();
-
-        $product = $em->getRepository(Product::class)->findBy(['category'=>$categorie]);
-
-         /*foreach ($product as $p) {
-
-         }
-         */
+   //     var_dump($categorie);die();
 
 
 
+        $product = $em->getRepository(Product::class)->findBy(['category'=>$categorie]);//list des prod ta3 categorie ly clikit alih
 
 
-
-
-        return $this->render('client/categorie/showProductsByCat.html.twig', array('products'=>$product,'namecar'=>$categorie->getName()
+        return $this->render('client/categorie/showProductsByCat.html.twig', array('products'=>$product
 
         ));
     }
