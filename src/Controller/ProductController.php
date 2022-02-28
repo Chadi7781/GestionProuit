@@ -145,7 +145,7 @@ class ProductController extends AbstractController
     public function chercherProduit(\Symfony\Component\HttpFoundation\Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $requestString = $request->get('q');
+        $requestString = $request->get('q');// ooofkdokfdfdf
         $products =  $em->getRepository(Product::class)->rechercheAvance($requestString);
         if(!$products) {
             $result['products']['error'] = "Product non trouvé :( ";
@@ -154,6 +154,12 @@ class ProductController extends AbstractController
         }
         return new Response(json_encode($result));
     }
+
+
+
+
+
+    // LES  attributs
     public function getRealEntities($products){
         foreach ($products as $products){
             $realEntities[$products->getId()] = [$products->getImage(),$products->getDateCreation(),$products->getNom(),$products->getPrix()];
@@ -161,4 +167,53 @@ class ProductController extends AbstractController
         }
         return $realEntities;
     }
+
+
+    //METIER TRAITER
+
+    /**
+     * @Route("/traiter/{id}", name="traiter")
+     */
+    public function traiterProduct($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $etat = $em->getRepository(Product::class)->traiter($id);
+        $em->flush();
+        return $this->redirectToRoute('product_list');
+        }
+
+    /**
+     * @Route("/topfive", name="topfive")
+     */
+
+    public function  afficherTopfiveProduct() {
+        $em = $this->getDoctrine()->getManager();
+        $produitEvalues = $em->getRepository(Product::class)->getProduitsEvaluees();
+
+        $note = 0;
+        //count
+        $i = 0;
+
+        //tableau
+        $j=0;
+
+        foreach ($produitEvalues as $pe) {
+            $note = $note + $pe["note"];
+            $i++;
+
+
+            $noteMoy = $note / $i;
+
+            $noteMoy = round($noteMoy);
+
+            $prod = $em->getRepository(Product::class)->findOneBy(array('id' => $pe['id']));
+
+            $produitTop[$j] = $prod;
+
+            $j++;
+        }
+        return $this->render('product/top.html.twig',array('id'=>$pe['id'],'note'=>$pe['note'],'topfive'=>$produitTop));
+
+    }
+
 }

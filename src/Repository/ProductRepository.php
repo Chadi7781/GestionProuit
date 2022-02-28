@@ -25,7 +25,8 @@ class ProductRepository extends ServiceEntityRepository
 
 
 
-    //event 1 / event 2                         event1
+
+    //using query builder
     public function rechercheAvance($str) {
         return $this->getEntityManager()
             ->createQuery(
@@ -37,32 +38,32 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
 
     }
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+
+    //using DQL
+    public function traiter($id) {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder(); // dql
+
+        $etat = $query->update('App\Entity\Product','p')
+                      ->set('p.etat','?1')
+                      ->where('p.id= ?2')
+                    ->setParameter(1,true)
+                    ->setParameter(2,$id)
+                    ->getQuery()->getResult();
+
+   }
+
+
+   //METIER 3
+    public function  getProduitsEvaluees() {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder(); // dql
+        $query->select('p.id ,p.note')
+            ->from('App\Entity\Product','p')
+            ->orderBy('p.note','DESC')
+            ->setMaxResults(5);
+        $res = $query->getQuery();
+        return $res->execute();
     }
-    */
 }

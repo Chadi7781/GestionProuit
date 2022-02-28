@@ -1,0 +1,55 @@
+{% extends 'base1.html.twig' %}
+
+
+{% block body %}
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url({{ asset('assetClient/images/backg.jpg') }});" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate pb-5 text-center">
+                    <h1 class="mb-3 bread">Categories &amp; Section</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Category <i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row d-flex">
+
+                {% for top in topfive %}
+
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry justify-content-end">
+                            <div class="text mt-3 float-right d-block">
+                                <img class="card-img-top img-fluid" src="{{ asset('uploads/produit_image/'~top.image) }}" alt="Card image cap">
+
+                                <h3 class="heading"><a href="#">{{ top.Nom }}</a></h3>
+                                <h3 class="heading"><a href="#">{{ top.note }}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <div class="block-27">
+                        <ul>
+                            <li><a href="#">&lt;</a></li>
+                            <li class="active"><span>1</span></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">&gt;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

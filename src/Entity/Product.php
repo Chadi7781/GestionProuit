@@ -78,6 +78,18 @@ class Product
     private $file;
 
 
+    /**
+     * @ORM\Column(type="boolean", length=500,nullable=true)
+     */
+    private $etat;
+
+    /**
+     * @ORM\Column(type="integer",nullable=true)
+     */
+    private $note;
+
+
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
@@ -235,6 +247,41 @@ class Product
 
         $this->file = null; // liberation memoire
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param mixed $etat
+     */
+    public function setEtat($etat): void
+    {
+        $this->etat = $etat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param mixed $note
+     */
+    public function setNote($note): void
+    {
+        $this->note = $note;
+    }
+
+
+
 
 
 

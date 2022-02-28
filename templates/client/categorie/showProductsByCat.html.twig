@@ -52,6 +52,7 @@
                               <div class="text mt-3 float-right d-block">
 
                                   <h3 class="heading"><a href="#">{{ p.nom }}</a></h3>
+
                               </div>
                           </div>
                       </div>
@@ -93,7 +94,7 @@
 
                 var minlength = 3;
                 var that = this;
-                var value = $(this).val();
+                var value = $(this).val(); // elyyktbo fi input 7atito fi var var
                 var entitySelector = $("#entitiesNav").html('');
                 if (value.length >= minlength ) {
                     if (searchRequest != null)
